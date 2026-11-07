@@ -168,40 +168,49 @@ const TEMPO_INATIVIDADE = 45;
 // Tempo na tela final antes de voltar sozinho (em segundos)
 const TEMPO_TELA_FINAL = 12;
 
-// Carro de cada perfil (estoque de seminovos do site). Troque "modelo", "foto" e, se quiser, a descrição.
+// Carros de cada perfil (estoque de seminovos do site). Cada vez sorteia um da lista do perfil. Troque "modelo", "foto" e, se quiser, a descrição.
 // "foto": caminho da imagem na mesma pasta do html. Ex.: "img/aventureiro.png"
 // Deixe "" para mostrar o espaço reservado.
+const U = "https://sanmarinomultimarcas.com.br/wp-content/uploads/";
 const PERFIS = {
   aventureiro: {
     icone: "suv",
     nome: "O ESPÍRITO AVENTUREIRO",
-    modelo: "FIAT RENEGADE",
-    versao: "2.0 Turbodiesel Trailhawk · 2019/2020",
-    foto: "https://sanmarinomultimarcas.com.br/wp-content/uploads/2026/09/WhatsApp-Image-2026-10-26-at-17.38.02-1.jpeg",
+    carros: [
+      { modelo: "FIAT RENEGADE", versao: "2.0 Turbodiesel Trailhawk · 2019/2020", foto: U + "2026/09/WhatsApp-Image-2026-10-26-at-17.38.02-1.jpeg" },
+      { modelo: "FIAT STRADA", versao: "Volcano 1.3 CD · 2023/2023", foto: U + "2026/07/WhatsApp-Image-2026-09-22-at-14.53.59-2.jpeg" },
+      { modelo: "VW SAVEIRO", versao: "1.6 Robust CS · 2025/2025", foto: U + "2026/07/WhatsApp-Image-2026-10-01-at-16.08.55.jpeg" }
+    ],
     desc: "Você ama liberdade, novas experiências e não perde uma oportunidade de explorar o mundo. Seu carro ideal acompanha seu ritmo e está sempre pronto para a próxima história."
   },
   estiloso: {
     icone: "fastback",
     nome: "O ESTILOSO DE PLANTÃO",
-    modelo: "FIAT FASTBACK",
-    versao: "1.0 T200 Audace CVT · 2023/2024",
-    foto: "https://sanmarinomultimarcas.com.br/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-08-at-11.18.17.jpeg",
+    carros: [
+      { modelo: "FIAT FASTBACK", versao: "1.0 T200 Audace CVT · 2023/2024", foto: U + "2026/10/WhatsApp-Image-2026-10-08-at-11.18.17.jpeg" },
+      { modelo: "FIAT FASTBACK", versao: "1.0 T200 CVT · 2025/2025", foto: U + "2026/09/WhatsApp-Image-2026-11-04-at-10.18.15.jpeg" },
+      { modelo: "JEEP RENEGADE", versao: "1.3 T270 Sport AT6 · 2022/2022", foto: U + "2026/09/WhatsApp-Image-2026-11-05-at-14.34.15-1.jpeg" }
+    ],
     desc: "Você tem personalidade, gosta de boas experiências e sabe que os detalhes fazem toda a diferença. Seu carro ideal combina estilo, presença e praticidade."
   },
   conforto: {
     icone: "pickup",
     nome: "O CONFORTO EM PRIMEIRO LUGAR",
-    modelo: "FIAT TORO",
-    versao: "Ranch Turbodiesel AT9 · 2025/2026",
-    foto: "https://sanmarinomultimarcas.com.br/wp-content/uploads/2026/08/WhatsApp-Image-2026-09-24-at-11.40.29-2.jpeg",
+    carros: [
+      { modelo: "FIAT TORO", versao: "Ranch Turbodiesel AT9 · 2025/2026", foto: U + "2026/08/WhatsApp-Image-2026-09-24-at-11.40.29-2.jpeg" },
+      { modelo: "FIAT TORO", versao: "1.3 T270 Endurance AT6 · 2022/2022", foto: U + "2026/11/WhatsApp-Image-2026-11-06-at-09.14.41.jpeg" },
+      { modelo: "FIAT KARDIAN", versao: "1.0 Evolution · 2024/2025", foto: U + "2026/07/7735684c-74f5-4b50-b7dd-e8fa89af5d8c.jpeg" }
+    ],
     desc: "Você valoriza tranquilidade, bem-estar e momentos especiais. Seu carro ideal é aquele que faz cada trajeto ser uma experiência agradável."
   },
   protagonista: {
     icone: "esportivo",
     nome: "O PROTAGONISTA",
-    modelo: "FIAT FASTBACK ABARTH",
-    versao: "1.3 T270 AT6 · 2026/2026",
-    foto: "https://sanmarinomultimarcas.com.br/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-08-at-11.05.16.jpeg",
+    carros: [
+      { modelo: "FIAT FASTBACK ABARTH", versao: "1.3 T270 AT6 · 2026/2026", foto: U + "2026/10/WhatsApp-Image-2026-10-08-at-11.05.16.jpeg" },
+      { modelo: "FIAT TITANO", versao: "Ranch Turbodiesel AT · 2025/2026", foto: U + "2026/07/WhatsApp-Image-2026-07-09-at-13.44.36.jpeg" },
+      { modelo: "FIAT FASTBACK", versao: "1.0 T200 CVT · 2025/2025", foto: U + "2026/09/WhatsApp-Image-2026-11-04-at-10.18.15.jpeg" }
+    ],
     desc: "Você gosta de movimento, intensidade e grandes conquistas. Seu carro ideal acompanha sua energia e combina com quem nasceu para viver novas histórias."
   }
 };
@@ -331,7 +340,9 @@ const CARROS = {
 const desenho = k => '<svg viewBox="0 0 400 170" style="width:90%;height:90%" aria-hidden="true">'+CARROS[k]+'</svg>';
 
 function mostrarResultado(chave){
-  const p = PERFIS[chave];
+  const perfil = PERFIS[chave];
+  const car = perfil.carros[Math.floor(Math.random()*perfil.carros.length)];
+  const p = Object.assign({}, perfil, car);
   $("r-modelo").textContent = p.modelo;
   $("r-versao").textContent = p.versao || "";
   $("r-perfil").textContent = p.nome;
