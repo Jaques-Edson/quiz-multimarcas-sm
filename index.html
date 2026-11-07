@@ -64,9 +64,11 @@
     padding:1.2vmin 3.5vmin;border-radius:100vmax}
   .carro-nome{font-size:8vmin;font-weight:900;line-height:1;margin:0}
   .versao{font-size:3.2vmin;font-weight:600;color:var(--muted);margin-top:-1.5vmin}
-  .foto{width:min(80vmin,70vw);height:min(34vmin,26vh);border-radius:3vmin;border:.4vmin dashed #ffffff55;
+  .foto{width:min(70vmin,70vw);aspect-ratio:4/3;border-radius:3vmin;border:.4vmin solid #ffffff40;
     display:grid;place-items:center;background:#ffffff0d;overflow:hidden;position:relative}
-  .foto img{width:100%;height:100%;object-fit:contain}
+  .foto .fundo{position:absolute;inset:-6%;background-size:cover;background-position:center;filter:blur(2.2vmin) brightness(.55);}
+  .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .foto svg{position:relative}
   .foto .ph{font-size:12vmin;opacity:.7}
   .legenda{position:absolute;right:1.4vmin;bottom:.8vmin;font-size:1.8vmin;color:#ffffffb0}
   .assina{font-size:3.2vmin;font-weight:800;margin-top:.5vmin}
@@ -93,7 +95,7 @@
     #t-resultado .match-topo{font-size:5vmin}
     #t-resultado .sub{font-size:2.4vmin}
     #t-resultado .carro-nome{font-size:6.4vmin} #t-resultado .versao{font-size:2.4vmin;margin-top:-.8vmin}
-    #t-resultado .foto{height:22vmin;width:55vmin}
+    #t-resultado .foto{width:34vmin}
     #t-resultado .perfil{font-size:2.8vmin;padding:.8vmin 3vmin}
     #t-resultado p{font-size:2.6vmin;max-width:120vmin}
     #t-resultado .assina{font-size:2.6vmin}
@@ -335,7 +337,7 @@ function mostrarResultado(chave){
   $("r-perfil").textContent = p.nome;
   $("r-desc").textContent = p.desc;
   $("r-foto").innerHTML = p.foto
-    ? '<img src="'+p.foto+'" alt=""><span class="legenda">Imagem ilustrativa</span>'
+    ? '<div class="fundo" style="background-image:url(\''+p.foto+'\')"></div><img src="'+p.foto+'" alt=""><span class="legenda">Imagem ilustrativa</span>'
     : desenho(p.icone)+'<span class="legenda">Imagem ilustrativa</span>';
   const im = $("r-foto").querySelector("img");
   if(im) im.addEventListener("error", () => { $("r-foto").innerHTML = desenho(p.icone)+'<span class="legenda">Imagem ilustrativa</span>'; });
