@@ -84,14 +84,23 @@
   .pilar{min-width:0!important;flex:none!important;padding:2.2vmin 4vmin!important;white-space:nowrap}
   .pilar span{font-size:2.7vmin;color:var(--muted)}
 
-@media (orientation:portrait){
+@media (max-aspect-ratio: 5/7){
     .opcoes{grid-template-columns:1fr;gap:3vmin}
     .op{min-height:21vmin;padding:3vmin 4vmin}
     .op .t{font-size:4.4vmin} .op .s{font-size:3.4vmin}
     .op .ico{font-size:8vmin} .letra{width:9vmin;height:9vmin;font-size:4.4vmin}
     h2{font-size:6.6vmin}
   }
-  @media (orientation:landscape){
+  @media (min-aspect-ratio: 5/7){
+    body::after{bottom:1.6vmin;width:14vmin}
+    #t-tripla{gap:1.6vmin;padding-top:12vmin}
+    #t-tripla .tc-titulo{font-size:4.6vmin}
+    #t-tripla p{font-size:2.6vmin;max-width:110vmin}
+    #t-tripla .banner-tc{width:62vmin}
+    #t-tripla .pilar{padding:1.4vmin 3vmin!important} #t-tripla .pilar b{font-size:2.8vmin}
+    #t-tripla .btn{min-height:9vmin;padding:2vmin 6vmin;font-size:3.2vmin}
+    #t-pergunta{gap:2vmin;padding-top:12vmin} .op{min-height:12vmin;padding:1.6vmin 2.4vmin}
+    #t-pergunta h2{font-size:5vmin}
     #t-resultado{gap:1.4vmin;padding-top:12vmin}
     #t-resultado .match-topo{font-size:5vmin}
     #t-resultado .sub{font-size:2.4vmin}
@@ -101,7 +110,6 @@
     #t-resultado p{font-size:2.6vmin;max-width:120vmin}
     #t-resultado .assina{font-size:2.6vmin}
     #t-resultado .assina small{font-size:2.2vmin}
-    #t-tripla .banner-tc{width:80vmin}
     #t-resultado .btn{min-height:9vmin;padding:2vmin 6vmin;font-size:3.2vmin}
     h1{font-size:7vmin} .grande-emoji{font-size:11vmin}
   }
