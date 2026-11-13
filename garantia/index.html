@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Garantia San Marino | Desafio dos 2 Anos</title>
+<style>
+  :root{
+    --fundo:#202423;
+    --fundo2:#2a2f2d;
+    --creme:#E6D5B8;
+    --verde:#91CD90;
+    --verde-escuro:#456B3B;
+    --branco:#ffffff;
+    --erro:#d98a7a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--fundo);color:var(--branco);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    min-height:100vh;display:flex;justify-content:center;padding:24px 16px 48px;
+  }
+  .app{width:100%;max-width:680px}
+  .topo{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:12px}
+  .topo img.logo{height:30px;max-width:60%;object-fit:contain}
+  .topo span{font-size:11px;letter-spacing:.18em;color:var(--creme);text-transform:uppercase;opacity:.8}
+  h1,h2,.serif{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:var(--creme)}
+  .tela{display:none}
+  .tela.ativa{display:block}
+  .selo{width:150px;height:150px;display:block;margin:8px auto 20px}
+  .etiqueta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--verde)}
+  #inicio{text-align:center}
+  #inicio h1{font-size:44px;line-height:1.1;margin:10px 0 14px}
+  #inicio p{color:#cfd3d1;line-height:1.55;margin:0 auto 26px;max-width:480px}
+  .botao{
+    background:var(--verde);color:var(--fundo);border:0;border-radius:6px;
+    padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.03em;
+  }
+  .botao:hover{filter:brightness(1.08)}
+  .botao:disabled{opacity:.35;cursor:not-allowed;filter:none}
+  .botao.vazado{background:transparent;color:var(--creme);border:1px solid var(--creme)}
+  .progresso{height:4px;background:var(--fundo2);border-radius:2px;margin-bottom:10px;overflow:hidden}
+  .progresso div{height:100%;background:var(--verde);width:0;transition:width .3s}
+  .contador{font-size:12px;letter-spacing:.15em;color:var(--verde);text-transform:uppercase;margin-bottom:18px}
+  .pergunta{font-size:26px;line-height:1.25;margin-bottom:24px}
+  .opcoes{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+  .opcao{
+    text-align:left;background:var(--fundo2);color:var(--branco);
+    border:1px solid #3a413f;border-radius:8px;padding:15px 16px;font-size:16px;line-height:1.4;
+    cursor:pointer;display:flex;gap:12px;align-items:flex-start;font-family:inherit;
+  }
+  .opcao:hover{border-color:var(--verde)}
+  .opcao .letra{color:var(--verde);font-weight:700;min-width:18px}
+  .opcao.marcada{border-color:var(--verde);background:#2f3a32}
+  .acoes{display:flex;justify-content:space-between;gap:12px}
+  /* resultado */
+  #resultado{text-align:center}
+  .nota{font-family:Georgia,serif;font-size:76px;color:var(--creme);line-height:1}
+  .nota small{font-size:30px;color:var(--verde)}
+  .msg{color:#cfd3d1;margin:10px auto 28px;max-width:460px;line-height:1.5}
+  .revisao{text-align:left;margin-top:34px}
+  .revisao h2{font-size:26px;margin-bottom:16px}
+  .item{border-radius:8px;padding:16px;margin-bottom:12px;background:var(--fundo2);border-left:4px solid var(--verde)}
+  .item.errou{border-left-color:var(--erro)}
+  .item .q{font-family:Georgia,serif;color:var(--creme);font-size:18px;line-height:1.3;margin-bottom:10px}
+  .item .status{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .item.acertou .status{color:var(--verde)}
+  .item.errou .status{color:var(--erro)}
+  .item p{font-size:15px;line-height:1.5;color:#e4e6e5;margin-top:4px}
+  .item p b{color:var(--branco)}
+  .rodape{margin-top:36px;text-align:center;font-size:11px;letter-spacing:.16em;color:#8d9490;text-transform:uppercase}
+  @media(max-width:480px){
+    #inicio h1{font-size:34px}.pergunta{font-size:22px}.nota{font-size:62px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topo">
+    <img class="logo" src="logo-branco.png" alt="San Marino Multimarcas">
+    <span>Seminovos</span>
+  </div>
+
+  <section id="inicio" class="tela ativa">
+    <img class="selo" src="selo.png" alt="Selo San Marino Multimarcas, 2 anos de garantia">
+    <div class="etiqueta">Treinamento da equipe de vendas</div>
+    <h1>Quiz Garantia San Marino<br>Desafio dos 2 Anos</h1>
+    <p>São 10 perguntas sobre o Manual de Garantia Contratual Estendida da San Marino Multimarcas. Responda tudo e, no final, veja sua nota, onde errou e a resposta certa.</p>
+    <button class="botao" id="comecar">Começar o desafio</button>
+  </section>
+
+  <section id="quiz" class="tela">
+    <div class="progresso"><div id="barra"></div></div>
+    <div class="contador" id="contador"></div>
+    <h2 class="pergunta" id="pergunta"></h2>
+    <div class="opcoes" id="opcoes"></div>
+    <div class="acoes">
+      <button class="botao vazado" id="voltar">Voltar</button>
+      <button class="botao" id="avancar" disabled>Próxima</button>
+    </div>
+  </section>
+
+  <section id="resultado" class="tela">
+    <img class="selo" src="selo.png" alt="Selo 2 anos de garantia" style="width:110px;height:110px">
+    <div class="etiqueta">Sua nota</div>
+    <div class="nota"><span id="acertos">0</span><small>/10</small></div>
+    <p class="msg" id="mensagem"></p>
+    <button class="botao" id="refazer">Refazer o quiz</button>
+    <div class="revisao">
+      <h2>Veja suas respostas</h2>
+      <div id="lista"></div>
+    </div>
+  </section>
+
+  <div class="rodape">San Marino Multimarcas • Seminovos</div>
+</div>
+
+<script>
+const perguntas = [
+  {
+    q: "Qual é o prazo de vigência da garantia contratual estendida?",
+    o: ["1 ano ou 10.000 km, o que ocorrer primeiro",
+        "2 anos ou até 20.000 km rodados a mais, o que ocorrer primeiro",
+        "2 anos, sem limite de quilometragem",
+        "Até 20.000 km, sem limite de tempo"],
+    c: 1,
+    e: "A garantia vale por 2 anos a partir da emissão do certificado ou até o carro rodar mais 20.000 km desde a compra. Vale o que acontecer primeiro."
+  },
+  {
+    q: "O cliente comprou o carro com 45.000 km. Até qual quilometragem vai a garantia?",
+    o: ["50.000 km", "65.000 km", "20.000 km", "75.000 km"],
+    c: 1,
+    e: "A quilometragem limite é o KM na compra + 20.000 km. Então 45.000 + 20.000 = 65.000 km."
+  },
+  {
+    q: "Qual destes itens está coberto pela garantia?",
+    o: ["Câmbio (transmissão)", "Bloco do motor", "Bomba de óleo", "Freios"],
+    c: 2,
+    e: "A garantia cobre só partes móveis internas do motor: virabrequim e mancais, bielas, pistões, anéis e pinos, comando de válvulas e tuchos, válvulas de admissão e escape e bomba de óleo."
+  },
+  {
+    q: "O bloco do motor apresentou trinca. A garantia cobre?",
+    o: ["Sim, é parte do motor",
+        "Sim, mas só no primeiro ano",
+        "Não, bloco e cabeçote estão excluídos",
+        "Sim, se o cliente fez todas as revisões"],
+    c: 2,
+    e: "Defeitos de fundição, falhas estruturais, trincas, rachaduras ou porosidade no bloco e no cabeçote estão completamente excluídos da garantia."
+  },
+  {
+    q: "De quanto em quanto tempo o cliente deve trocar o óleo e o filtro de óleo?",
+    o: ["A cada 10.000 km ou 2 anos",
+        "A cada 5.000 km ou 1 ano, o que ocorrer primeiro",
+        "A cada 5.000 km, sem limite de tempo",
+        "Só quando a luz do painel acender"],
+    c: 1,
+    e: "A troca de óleo e do filtro de óleo é obrigatória a cada 5.000 km ou 1 ano, o que ocorrer primeiro."
+  },
+  {
+    q: "Onde o cliente deve fazer as trocas e revisões preventivas?",
+    o: ["Em qualquer oficina de confiança",
+        "Só na loja onde comprou o carro",
+        "Em qualquer oficina da rede San Marino, Fiat ou Multimarcas",
+        "Em oficina de qualquer concessionária, desde que guarde a nota"],
+    c: 2,
+    e: "Todas as trocas e revisões preventivas devem ser feitas em oficina da rede San Marino Veículos, seja na bandeira Fiat ou na Multimarcas."
+  },
+  {
+    q: "O cliente trocou o óleo e o filtro em uma oficina de fora da rede. O que acontece com a garantia?",
+    o: ["Nada, desde que ele guarde a nota fiscal",
+        "Ele perde a garantia só do filtro",
+        "A garantia fica suspensa até ele refazer a troca na rede",
+        "Ele perde a garantia automaticamente, na hora"],
+    c: 3,
+    e: "Trocar óleo e filtro em oficina terceira ou fora da rede San Marino faz perder a garantia de forma automática e imediata."
+  },
+  {
+    q: "Qual é a tolerância de atraso na manutenção antes de perder a garantia?",
+    o: ["Nenhuma, o prazo é exato",
+        "Mais de 30 dias de atraso na troca por tempo, ou mais de 500 km além dos 5.000 km",
+        "Mais de 60 dias ou mais de 1.000 km além do limite",
+        "Mais de 15 dias ou mais de 100 km além do limite"],
+    c: 1,
+    e: "Atraso superior a 30 dias na troca por tempo (1 ano) ou rodagem superior a 500 km além dos 5.000 km faz perder a garantia de forma automática e irrevogável."
+  },
+  {
+    q: "O motor superaqueceu porque faltou água e aditivo no arrefecimento. A garantia cobre?",
+    o: ["Sim, motor é item coberto",
+        "Não, superaquecimento por falta de água ou aditivo está nas exclusões",
+        "Sim, se o carro estiver dentro dos 2 anos",
+        "Sim, mas só a metade do reparo"],
+    c: 1,
+    e: "A garantia não cobre falhas por mau uso, negligência ou superaquecimento do motor por falta de água ou aditivo. Também ficam de fora combustível adulterado, preparação de motor (Remap), enchentes, alagamentos e acidentes."
+  },
+  {
+    q: "O cliente vendeu o carro para outra pessoa. O que acontece com a garantia?",
+    o: ["Passa para o novo dono",
+        "Passa para o novo dono, se ele fizer as revisões",
+        "Continua com o cliente original",
+        "É extinta automaticamente"],
+    c: 3,
+    e: "A garantia é pessoal e intransferível, válida só para o comprador original. Se o carro for vendido ou transferido a terceiros, ela é extinta automaticamente."
+  }
+];
+
+const L = ["A","B","C","D"];
+let atual = 0;
+let respostas = new Array(perguntas.length).fill(null);
+
+const $ = id => document.getElementById(id);
+function mostrar(id){
+  document.querySelectorAll(".tela").forEach(t => t.classList.remove("ativa"));
+  $(id).classList.add("ativa");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function desenhar(){
+  const p = perguntas[atual];
+  $("contador").textContent = "Pergunta " + (atual+1) + " de " + perguntas.length;
+  $("barra").style.width = ((atual) / perguntas.length * 100) + "%";
+  $("pergunta").textContent = p.q;
+  const box = $("opcoes");
+  box.innerHTML = "";
+  p.o.forEach((t,i) => {
+    const b = document.createElement("button");
+    b.className = "opcao" + (respostas[atual] === i ? " marcada" : "");
+    b.innerHTML = '<span class="letra">' + L[i] + '</span><span></span>';
+    b.lastChild.textContent = t;
+    b.onclick = () => { respostas[atual] = i; desenhar(); };
+    box.appendChild(b);
+  });
+  $("voltar").style.visibility = atual === 0 ? "hidden" : "visible";
+  $("avancar").disabled = respostas[atual] === null;
+  $("avancar").textContent = atual === perguntas.length-1 ? "Ver minha nota" : "Próxima";
+}
+
+function finalizar(){
+  let acertos = 0;
+  const lista = $("lista");
+  lista.innerHTML = "";
+  perguntas.forEach((p,i) => {
+    const ok = respostas[i] === p.c;
+    if (ok) acertos++;
+    const d = document.createElement("div");
+    d.className = "item " + (ok ? "acertou" : "errou");
+    let html = '<div class="status">' + (ok ? "Acertou" : "Errou") + ' • Pergunta ' + (i+1) + '</div>';
+    html += '<div class="q"></div>';
+    if (!ok) html += '<p class="sua"><b>Sua resposta:</b> <span></span></p>';
+    html += '<p class="certa"><b>Resposta certa:</b> <span></span></p>';
+    html += '<p class="expl"></p>';
+    d.innerHTML = html;
+    d.querySelector(".q").textContent = p.q;
+    if (!ok) d.querySelector(".sua span").textContent = L[respostas[i]] + ") " + p.o[respostas[i]];
+    d.querySelector(".certa span").textContent = L[p.c] + ") " + p.o[p.c];
+    d.querySelector(".expl").textContent = p.e;
+    lista.appendChild(d);
+  });
+  $("acertos").textContent = acertos;
+  let m;
+  if (acertos === 10) m = "Perfeito! Você domina a garantia de 2 anos da San Marino Multimarcas.";
+  else if (acertos >= 8) m = "Muito bom! Revise os pontos que errou e você chega nos 10.";
+  else if (acertos >= 6) m = "Está no caminho. Leia de novo o manual e as explicações abaixo.";
+  else m = "Vale reler o manual com calma. Veja abaixo onde errou e tente de novo.";
+  $("mensagem").textContent = m;
+  mostrar("resultado");
+}
+
+$("comecar").onclick = () => { atual = 0; respostas.fill(null); mostrar("quiz"); desenhar(); };
+$("voltar").onclick = () => { if (atual > 0){ atual--; desenhar(); } };
+$("avancar").onclick = () => {
+  if (atual < perguntas.length-1){ atual++; desenhar(); }
+  else finalizar();
+};
+$("refazer").onclick = () => { atual = 0; respostas.fill(null); mostrar("quiz"); desenhar(); };
+</script>
+</body>
+</html>
