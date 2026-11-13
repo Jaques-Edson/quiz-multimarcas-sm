@@ -69,6 +69,13 @@
   .item p{font-size:15px;line-height:1.5;color:#e4e6e5;margin-top:4px}
   .item p b{color:var(--branco)}
   .rodape{margin-top:36px;text-align:center;font-size:11px;letter-spacing:.16em;color:#8d9490;text-transform:uppercase}
+  #manual .m-resumo{color:#cfd3d1;line-height:1.55;margin-bottom:22px}
+  .m-bloco{background:var(--fundo2);border-radius:8px;padding:20px 18px;margin-bottom:14px;border-left:4px solid var(--verde)}
+  .m-bloco h2{font-size:21px;margin:16px 0 8px}
+  .m-bloco .etiqueta + h2{margin-top:6px}
+  .m-bloco p{line-height:1.55;color:#e4e6e5;margin-bottom:10px;font-size:15px}
+  .m-bloco ul{margin:0 0 6px 20px;line-height:1.7;color:#e4e6e5;font-size:15px}
+  .m-bloco .m-nota{color:var(--verde);font-weight:700}
   @media(max-width:480px){
     #inicio h1{font-size:34px}.pergunta{font-size:22px}.nota{font-size:62px}
   }
@@ -87,6 +94,80 @@
     <h1>Quiz Garantia San Marino<br>Desafio dos 2 Anos</h1>
     <p>São 10 perguntas sobre o Manual de Garantia Contratual Estendida da San Marino Multimarcas. Responda tudo e, no final, veja sua nota, onde errou e a resposta certa.</p>
     <button class="botao" id="comecar">Começar o desafio</button>
+    <div style="margin-top:14px"><button class="botao vazado" id="abrirManual1">Ler o manual de garantia</button></div>
+  </section>
+
+  <section id="manual" class="tela">
+    <div class="etiqueta">Manual do cliente</div>
+    <h1 class="serif" style="font-size:38px;margin:6px 0 6px">Manual de garantia</h1>
+    <div class="serif" style="font-size:15px;color:var(--verde);letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px">Contratual estendida</div>
+    <p class="m-resumo">Até 2 anos ou 20.000 km adicionais. O que primeiro ocorrer. Cobertura conforme condições do certificado.</p>
+
+    <div class="m-bloco">
+      <div class="etiqueta">02 / Prazo e cobertura</div>
+      <h2>Prazo e limite de validade</h2>
+      <p>Vigência: 2 (dois) anos a contar da data de emissão deste certificado OU até que o veículo rode mais 20.000 (vinte mil) quilômetros a partir da quilometragem da data da compra, o que primeiro ocorrer.</p>
+      <p>A cobertura encerra-se automaticamente assim que qualquer um dos dois limites (tempo ou quilometragem total rodada) for atingido, ou se o veículo incorrer nas condições de perda de garantia previstas nas condições de manutenção.</p>
+      <p class="m-nota">Quilometragem limite: KM na compra + 20.000 km</p>
+      <h2>Itens cobertos • partes móveis mecânicas</h2>
+      <p>A presente garantia contratual restringe-se exclusivamente aos seguintes componentes internos e móveis do motor do carro:</p>
+      <ul>
+        <li>Virabrequim e mancais</li>
+        <li>Bielas</li>
+        <li>Pistões, anéis e pinos</li>
+        <li>Comando de válvulas e tuchos</li>
+        <li>Válvulas de admissão e escape</li>
+        <li>Bomba de óleo</li>
+      </ul>
+    </div>
+
+    <div class="m-bloco">
+      <div class="etiqueta">03 / Exclusões</div>
+      <h2>Exclusões específicas do motor</h2>
+      <p>Estão completamente EXCLUÍDOS desta garantia defeitos de fundição, falhas estruturais, trincas, rachaduras ou porosidade no bloco do motor e no cabeçote.</p>
+      <p>Quaisquer outras peças periféricas, sistemas eletrônicos, transmissão (câmbio), suspensão ou freios também estão expressamente excluídos desta garantia contratual de 2 anos/20.000 km.</p>
+      <h2>Exclusões gerais de garantia</h2>
+      <p>Esta garantia não cobre falhas decorrentes de mau uso, imperícia, negligência, superaquecimento do motor por falta de água/aditivo no arrefecimento, uso de combustível adulterado, modificações/preparação de motor (Remap) ou danos causados por enchentes, alagamentos e acidentes.</p>
+    </div>
+
+    <div class="m-bloco">
+      <div class="etiqueta">04 / Manutenção obrigatória</div>
+      <h2>Cuidado em dia. Garantia válida.</h2>
+      <p class="m-nota">5.000 km ou 1 ano — para óleo e filtro de óleo. O que primeiro ocorrer.</p>
+      <p>A validade desta garantia é estritamente condicionada à realização preventiva das manutenções do veículo. O proprietário deve obrigatoriamente realizar a troca de óleo do motor e substituição do filtro de óleo a cada 5.000 km rodados ou a cada 1 (um) ano, o que primeiro ocorrer.</p>
+      <p>Em cada revisão, será realizada a avaliação dos filtros de ar e de combustível. Caso a equipe técnica julgue necessária a substituição, a troca será obrigatória.</p>
+      <h2>01 / Local obrigatório</h2>
+      <p>Todas as trocas e revisões preventivas deverão ser obrigatoriamente realizadas nas instalações de qualquer oficina da rede San Marino Veículos (seja na bandeira Fiat ou na bandeira Multimarcas).</p>
+      <h2>02 / Comprovantes</h2>
+      <p>É obrigatória a manutenção do histórico de ordens de serviço e notas fiscais emitidas pela San Marino, constando a data, a quilometragem exata do veículo no momento do serviço e as peças/óleo utilizados.</p>
+      <h2>03 / Serviços fora da rede</h2>
+      <p>A realização dos serviços de troca de óleo e filtro de óleo em oficinas terceiras ou fora da rede autorizada San Marino implicará a perda automática e imediata desta garantia.</p>
+      <h2>04 / Prazos de manutenção</h2>
+      <p>O atraso superior a 30 dias na troca por tempo (1 ano) ou a rodagem superior a 500 km além do limite de quilometragem (5.000 km) também implicará a perda automática e irrevogável desta garantia.</p>
+      <h2>05 / Inspeção e recomendações</h2>
+      <p>Por ocasião de cada troca de óleo e filtro de óleo nas oficinas da San Marino, a equipe técnica realizará uma revisão/inspeção de rotina no veículo e poderá apontar sugestões de manutenções preventivas e corretivas em outros sistemas do carro.</p>
+      <p>Fica sob a responsabilidade do cliente autorizar ou não a execução destes demais serviços adicionais sugeridos (que não fazem parte da cobertura gratuita da garantia de motor).</p>
+    </div>
+
+    <div class="m-bloco">
+      <div class="etiqueta">05 / Controle de revisões</div>
+      <h2>Seu histórico de manutenção</h2>
+      <p>Trocas de óleo e filtro de óleo obrigatórias a cada 5.000 km ou 1 ano, o que primeiro ocorrer. Guarde as notas fiscais e ordens de serviço.</p>
+      <ul>
+        <li>1ª troca: compra + 5.000 km</li>
+        <li>2ª troca: compra + 10.000 km</li>
+        <li>3ª troca: compra + 15.000 km</li>
+        <li>4ª troca: compra + 20.000 km</li>
+      </ul>
+    </div>
+
+    <div class="m-bloco">
+      <div class="etiqueta">06 / Formalização</div>
+      <h2>Garantia pessoal e intransferível</h2>
+      <p>A presente garantia contratual estendida possui caráter estritamente pessoal e intransferível, válida exclusivamente para o comprador original identificado neste termo. Em caso de venda ou transferência de propriedade do veículo a terceiros, esta garantia será automaticamente extinta.</p>
+    </div>
+
+    <div style="text-align:center;margin-top:24px"><button class="botao" id="fecharManual">Voltar</button></div>
   </section>
 
   <section id="quiz" class="tela">
@@ -106,6 +187,7 @@
     <div class="nota"><span id="acertos">0</span><small>/10</small></div>
     <p class="msg" id="mensagem"></p>
     <button class="botao" id="refazer">Refazer o quiz</button>
+    <div style="margin-top:14px"><button class="botao vazado" id="abrirManual2">Ler o manual de garantia</button></div>
     <div class="revisao">
       <h2>Veja suas respostas</h2>
       <div id="lista"></div>
@@ -271,7 +353,12 @@ $("avancar").onclick = () => {
   if (atual < perguntas.length-1){ atual++; desenhar(); }
   else finalizar();
 };
-$("refazer").onclick = () => { atual = 0; respostas.fill(null); mostrar("quiz"); desenhar(); };
+let telaAnterior = "inicio";
+function abrirManual(de){ telaAnterior = de; mostrar("manual"); }
+$("abrirManual1").onclick = () => abrirManual("inicio");
+$("abrirManual2").onclick = () => abrirManual("resultado");
+$("fecharManual").onclick = () => mostrar(telaAnterior);
+$("refazer").onclick =() => { atual = 0; respostas.fill(null); mostrar("quiz"); desenhar(); };
 </script>
 </body>
 </html>
